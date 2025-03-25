@@ -1,0 +1,143 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Custom Styling */
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Kamerik 105 Bold";
+  src: url("/fonts/Kamerik105-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Blacknorth";
+  src: url("/fonts/Blacknorthdemo-mLE25.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+
+
+body {
+  font-family: 'Satoshi', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Clash Display', sans-serif;
+}
+.navbar {
+  font-family: 'Clash Display', sans-serif;
+}
+
+.nav-links {
+  font-family: 'Satoshi', sans-serif;
+}
+
+
+.btn-glow:hover {
+  box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.8);
+}
+
+/* Header Animation */
+.header-animation {
+  animation: fadeInUp 1s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+body {
+  background-color: white !important; /* Forces background to white */
+  color: black; /* Ensure text is visible */
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Regular.woff2") format("woff2"),
+       url("/fonts/Satoshi-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Clash Display";
+  src: url("/fonts/ClashDisplay-Bold.woff2") format("woff2"),
+       url("/fonts/ClashDisplay-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+body {
+  font-family: "Satoshi", sans-serif;
+}
+
+h1 {
+  font-family: "Clash Display", sans-serif;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Regular.otf") format("otf"),
+       url("/fonts/Satoshi-Regular.otf") format("otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Clash Display";
+  src: url("/fonts/ClashDisplay-Bold.otf") format("otf"),
+       url("/fonts/ClashDisplay-Bold.otf") format("otf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+body {
+  font-family: "Satoshi", sans-serif;
+}
+
+h1 {
+  font-family: "Clash Display", sans-serif;
+}
