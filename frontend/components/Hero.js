@@ -54,20 +54,20 @@ const Hero = () => {
   const sectionRef = useRef(null);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
 
-  useEffect(() => {
-    sectionRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  // useEffect(() => {
+  //   sectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  // }, []);
 
   return (
-    <section ref={sectionRef} className="w-full bg-[#DCDCDC] overflow-hidden">
-      {/* Second Navbar */}
-      <div className="bg-[#DCDCDC] py-4 mb-20">
+    <section ref={sectionRef} className="w-full bg-[#DCDCDC] overflow-hidden min-h-[600px]">
 
-        <div className="max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4 overflow-x-auto">
+      {/* Second Navbar */}
+      <div className="bg-[#DCDCDC] py-4 mb-10 px-4 md:px-8">
+        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           {/* Categories Button */}
-          <div className="relative shrink-0">
+          <div className="relative w-full md:w-auto">
             <button
-              className="bg-[#83b735] text-white text-sm font-semibold px-6 py-3 flex items-center space-x-2 rounded whitespace-nowrap"
+              className="bg-[#83b735] text-white text-sm font-semibold px-6 py-3 flex justify-center items-center space-x-2 rounded w-full md:w-auto text-center"
               onClick={() => setCategoriesOpen(!categoriesOpen)}
             >
               <span>ALL CATEGORIES</span>
@@ -75,20 +75,25 @@ const Hero = () => {
             </button>
 
             {categoriesOpen && (
-              <div className="absolute top-full left-0 w-[240px] bg-white text-black rounded-lg shadow-lg z-50">
+              <div className="absolute top-full left-0 w-full md:w-[240px] bg-white text-black rounded-lg shadow-lg z-50">
                 <ul className="py-3">
-                  {["Keyboards", "Mice", "Headsets", "Monitors", "Controllers", "Gaming Chairs"].map((category) => (
-                    <li key={category} className="px-5 py-4 hover:bg-gray-200 cursor-pointer">
-                      {category}
-                    </li>
-                  ))}
+                  {["Keyboards", "Mice", "Headsets", "Monitors", "Controllers", "Gaming Chairs"].map(
+                    (category) => (
+                      <li
+                        key={category}
+                        className="px-5 py-4 hover:bg-gray-200 cursor-pointer"
+                      >
+                        {category}
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
             )}
           </div>
 
           {/* Search Bar */}
-          <div className="flex-grow max-w-full md:max-w-[600px] bg-white rounded-md overflow-hidden flex items-center">
+          <div className="w-full md:max-w-[600px] bg-white rounded-md overflow-hidden flex items-center">
             <input
               type="text"
               placeholder="Search..."
@@ -100,7 +105,8 @@ const Hero = () => {
           </div>
 
           {/* Offer Links */}
-          <div className="flex items-center gap-x-6 text-sm font-semibold text-black whitespace-nowrap">
+          <div className="hidden md:flex items-center gap-x-6 text-sm font-semibold text-black md:translate-x-[-20px]">
+
             <span className="cursor-pointer hover:text-[#83b735]">Special Offer</span>
             <span className="border-l border-black h-5"></span>
             <span className="cursor-pointer hover:text-[#83b735]">Website Reviews</span>
@@ -109,7 +115,7 @@ const Hero = () => {
       </div>
 
       {/* Swiper Hero */}
-      <Swiper modules={[Navigation]} navigation loop className="w-full h-[500px] -mt-6">
+      <Swiper modules={[Navigation]} navigation loop className="w-full h-auto -mt-32">
         {heroSlides.map((slide) => (
           <SwiperSlide key={slide.id}>
             {({ isActive }) => (
@@ -120,80 +126,68 @@ const Hero = () => {
                     initial="hidden"
                     animate="visible"
                     exit="hidden"
-                    className="max-w-[1200px] mx-auto px-4 md:px-8 -mt-4 pb-10 relative h-[500px] flex flex-col md:flex-row items-center justify-between"
+                    className="max-w-[1200px] mx-auto px-4 md:px-8 py-10 md:py-20 relative flex flex-col-reverse md:flex-row items-center justify-between"
                   >
                     {/* Text */}
-                    <div className="w-full md:w-1/2 z-10 flex flex-col justify-start items-start text-center md:text-left pt-0 pb-10">
-                      <div className="w-full">
-                        <motion.p
-                          custom={0}
-                          variants={textVariants}
-                          initial="hidden"
-                          animate="visible"
-                          className="text-base md:text-lg text-black font-bold mb-2"
-                        >
-                          {slide.subtitle}
-                        </motion.p>
-
-                        <motion.h1
-                          custom={0.3}
-                          variants={textVariants}
-                          initial="hidden"
-                          animate="visible"
-                          className="text-4xl md:text-7xl font-bold text-black leading-tight mb-2"
-                        >
-                          {slide.title}
-                        </motion.h1>
-
-                        <div className="flex flex-col gap-2">
-                          <motion.h2
-                            custom={0.6}
-                            variants={textVariants}
-                            initial="hidden"
-                            animate="visible"
-                            className="text-[48px] md:text-[135px] font-extrabold text-white opacity-70 leading-none tracking-tight z-0 whitespace-nowrap pointer-events-none"
-                          >
-                            {slide.description}
-                          </motion.h2>
-
-                          <motion.div
-                            custom={1}
-                            variants={textVariants}
-                            initial="hidden"
-                            animate="visible"
-                          >
-                            <button
-                              className="px-6 py-3 bg-white text-black text-base font-semibold rounded-md hover:bg-gray-100 transition w-fit"
-                              onClick={() =>
-                                document
-                                  .getElementById("next-section")
-                                  ?.scrollIntoView({ behavior: "smooth" })
-                              }
-                            >
-                              Shop by Category
-                            </button>
-                          </motion.div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Image – Responsive styling by slide */}
-                    <motion.div
-                        variants={imageVariants}
+                    <div className="w-full md:w-1/2 z-10 text-center md:text-left mt-6 md:mt-0">
+                      <motion.p
+                        custom={0}
+                        variants={textVariants}
                         initial="hidden"
                         animate="visible"
-                        className={`w-full md:w-1/2 relative hidden md:flex ${
-                          slide.id === 1 ? "justify-end pr-10" : "justify-center"
-                        } md:mt-0 mt-10 z-10 items-center`}
+                        className="text-base md:text-lg text-black font-bold mb-2"
                       >
+                        {slide.subtitle}
+                      </motion.p>
 
-                      <div
-                        className={`relative drop-shadow-2xl ${
-                          slide.id === 3
-                            ? "w-[320px] h-[320px] md:w-[620px] md:h-[620px] -mt-4 md:-mt-10"
-                            : "w-[280px] h-[280px] md:w-[520px] md:h-[520px]"
-                        }`}
+                      <motion.h1
+                        custom={0.3}
+                        variants={textVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="text-3xl md:text-6xl font-bold text-black leading-tight mb-2"
                       >
+                        {slide.title}
+                      </motion.h1>
+
+                      <motion.h2
+                        custom={0.6}
+                        variants={textVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="text-[40px] md:text-[120px] font-extrabold text-white opacity-70 leading-none tracking-tight z-0 pointer-events-none"
+                      >
+                        {slide.description}
+                      </motion.h2>
+
+                      <motion.div
+                        custom={1}
+                        variants={textVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="mt-4"
+                      >
+                        <button
+                          className="px-6 py-3 bg-white text-black text-base font-semibold rounded-md hover:bg-gray-100 transition"
+                          onClick={() =>
+                            document
+                              .getElementById("next-section")
+                              ?.scrollIntoView({ behavior: "smooth" })
+                          }
+                        >
+                          Shop by Category
+                        </button>
+                      </motion.div>
+                    </div>
+
+                    {/* Image */}
+                    <motion.div
+                      variants={imageVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="w-full md:w-1/2 flex justify-center mt-10 md:mt-0"
+                    >
+                      <div className="relative drop-shadow-2xl w-[240px] h-[240px] sm:w-[300px] sm:h-[300px] md:w-[520px] md:h-[520px]">
                         <Image
                           src={slide.image}
                           alt={slide.title}

@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@next/font": "^14.2.15",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "framer-motion": "^12.5.0",
     "google-fonts": "^1.0.0",
     "gsap": "^3.12.7",
+    "lucide-react": "^0.483.0",
     "next": "15.2.3",
     "next-video": "^2.2.0",
     "react": "^19.0.0",
