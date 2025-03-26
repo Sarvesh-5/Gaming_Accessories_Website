@@ -100,6 +100,7 @@ export default function ProductSection() {
         </motion.h2>
 
         {/* Product Grid */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product, index) => (
             <motion.div
@@ -124,6 +125,7 @@ export default function ProductSection() {
               </div>
 
               {/* Image Section */}
+              <div className="bg-white p-[6px]">
               <div className="relative bg-[#FAF7F7] h-72 flex items-center justify-center group">
                 <img
                   src={product.image}
@@ -135,7 +137,7 @@ export default function ProductSection() {
                 <button className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 bg-[#83b735] text-white text-sm font-semibold px-8 py-[10px] rounded-md transition-all duration-500 ease-in-out hover:bg-black whitespace-nowrap">
                   ADD TO CART
                 </button>
-              </div>
+              </div></div>
 
               {/* Info Section */}
               <div className="px-6 py-6 text-center">
