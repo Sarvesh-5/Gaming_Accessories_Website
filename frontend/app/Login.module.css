@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Bigger & Centered Container */
+.container {
+  width: 450px; /* Increased width */
+  background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+  border-radius: 40px;
+  padding: 40px;
+  border: 5px solid rgb(255, 255, 255);
+  box-shadow: rgba(133, 189, 215, 0.87) 0px 30px 30px -20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: 'Poppins', sans-serif; /* New Font */
+}
+
+/* Heading */
+.heading {
+  font-weight: 600;
+  font-size: 34px; /* Bigger Font */
+  color: rgb(16, 137, 211);
+  margin-bottom: 25px;
+}
+
+/* Form */
+.form {
+  margin-top: 20px;
+}
+
+/* Inputs */
+.input {
+  width: calc(100% - 20px);
+  background: white;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 20px;
+  font-size: 14px; /* Adjust font size if needed */
+  margin-top: 15px;
+  font-size: 16px; /* Bigger text */
+  box-shadow: #cff0ff 0px 10px 10px -5px;
+  border-inline: 2px solid transparent;
+}
+
+.input::placeholder {
+  color: rgb(150, 150, 150);
+  font-size: 15px;
+}
+
+.input:focus {
+  outline: none;
+  border-inline: 2px solid #12B1D1;
+}
+
+/* Forgot Password */
+.forgotPassword {
+  display: block;
+  margin-top: 12px;
+  font-size: 14px; /* Bigger Font */
+  text-align: left;
+  margin-left: 10px;
+}
+
+.forgotPassword a {
+  color: #0099ff;
+  text-decoration: none;
+}
+
+/* Login Button */
+.loginButton {
+  display: block; 
+  width: 80%; 
+  margin: 25px auto; /* Centers the button */
+  font-weight: bold;
+  background: linear-gradient(45deg, rgb(16, 137, 211) 0%, rgb(18, 177, 209) 100%);
+  color: white;
+  padding: 12px 0; 
+  font-size: 17px; 
+  border-radius: 25px;
+  box-shadow: rgba(133, 189, 215, 0.87) 0px 20px 10px -15px;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  text-align: center;
+}
+
+
+.loginButton:hover {
+  transform: scale(1.05);
+  box-shadow: rgba(133, 189, 215, 0.87) 0px 25px 10px -20px;
+}
+
+.loginButton:active {
+  transform: scale(0.95);
+  box-shadow: rgba(133, 189, 215, 0.87) 0px 15px 10px -10px;
+}
+
+/* Redirect Text */
+.redirectText {
+  font-size: 14px;
+  color: rgb(90, 90, 90);
+  margin-top: 12px;
+}
+
+.redirectLink {
+  color: #0099ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Social Account Container */
+.socialAccountContainer {
+  margin-top: 30px;
+}
+
+/* Title */
+.title {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  color: rgb(170, 170, 170);
+}
+
+/* Social Accounts */
+.socialAccounts {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+/* Social Buttons */
+.socialButton {
+  background: linear-gradient(45deg, rgb(0, 0, 0) 0%, rgb(112, 112, 112) 100%);
+  border: 4px solid white;
+  padding: 7px;
+  border-radius: 50%;
+  width: 50px; /* Bigger Buttons */
+  aspect-ratio: 1;
+  display: grid;
+  place-content: center;
+  box-shadow: rgba(133, 189, 215, 0.87) 0px 12px 10px -8px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.socialButton .svg {
+  fill: white;
+  width: 22px; /* Bigger Icons */
+  height: 22px;
+}
+
+.socialButton:hover {
+  transform: scale(1.15);
+}
+
+.socialButton:active {
+  transform: scale(0.9);
+}

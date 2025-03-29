@@ -33,7 +33,7 @@ const Navbar = () => {
 
   return (
     <>
-      {/* ✅ Show scrolling message only on home page */}
+      {/* Scrolling banner on home */}
       {isHomePage && (
         <div className="bg-[#83b735] text-white text-center py-2 text-sm font-bold uppercase">
           <marquee behavior="scroll" direction="left" scrollamount="6">
@@ -45,15 +45,11 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* Invisible marker to trigger sticky */}
+      {/* Sticky trigger */}
       <div ref={navRef} className="h-[0px]" />
 
-      {/* Sticky Navbar */}
-      <nav
-        className={`w-full z-50 transition-all duration-300 ${
-          isSticky ? 'fixed top-0 bg-white shadow-md' : 'relative'
-        }`}
-      >
+      {/* Sticky navbar */}
+      <nav className={`w-full z-50 transition-all duration-300 ${isSticky ? 'fixed top-0 bg-white shadow-md' : 'relative'}`}>
         <div className="flex items-center px-8 py-3 justify-between">
           <Link href="/">
             <div className={`${Blacknorth.className} text-2xl sm:text-3xl md:text-4xl font-bold uppercase whitespace-nowrap ml-0 md:ml-6`}>
@@ -61,7 +57,7 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Navigation Tabs */}
+          {/* Nav links */}
           <div className="hidden md:flex space-x-8 text-lg font-semibold uppercase">
             {["Home", "Products", "About", "Contact"].map((tab) => {
               const route = tab === "Home" ? "/" : `/${tab.toLowerCase()}`;
@@ -81,7 +77,7 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* Icons */}
+          {/* Right icons */}
           <div className="flex items-center space-x-6 mr-[5%] relative">
             {/* Wishlist */}
             <Link href="/wishlist" className="relative">
@@ -98,12 +94,12 @@ const Navbar = () => {
               )}
             </Link>
 
-            {/* User */}
+            {/* 🔐 Login icon (redirects to /login) */}
             <Link href="/login">
               <FiUser size={26} className="cursor-pointer hover:text-[#FF4655] text-black" />
             </Link>
 
-            {/* Mobile Toggle */}
+            {/* Mobile menu toggle */}
             <button className="md:hidden text-3xl" onClick={() => setMenuOpen(!menuOpen)}>
               <FiMenu />
             </button>
@@ -111,23 +107,19 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Drawer */}
       {menuOpen && (
         <>
           <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setMenuOpen(false)} />
-
-          <div className="fixed top-10 left-0 h-full w-72 bg-white z-50 shadow-lg transform transition-transform duration-300 ease-in-out">
+          <div className="fixed top-10 left-0 h-full w-72 bg-white z-50 shadow-lg transition-transform duration-300 ease-in-out">
             <div className="flex justify-between items-center h-[64px] px-6 border-b">
               <Link href="/" onClick={() => setMenuOpen(false)}>
-                <div className={`${Blacknorth.className} text-2xl font-bold uppercase`}>
-                  GG LOOTBOX
-                </div>
+                <div className={`${Blacknorth.className} text-2xl font-bold uppercase`}>GG LOOTBOX</div>
               </Link>
               <button onClick={() => setMenuOpen(false)} className="text-3xl">
                 &times;
               </button>
             </div>
-
             <ul className="p-6 space-y-6 text-lg font-semibold">
               {["Home", "Products", "About", "Contact"].map((tab) => {
                 const route = tab === "Home" ? "/" : `/${tab.toLowerCase()}`;
@@ -143,6 +135,12 @@ const Navbar = () => {
                   </li>
                 );
               })}
+              {/* Add Login in mobile menu */}
+              <li>
+                <Link href="/login" onClick={() => setMenuOpen(false)} className="block py-2 text-black">
+                  Login
+                </Link>
+              </li>
             </ul>
           </div>
         </>

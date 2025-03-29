@@ -1,12 +1,11 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-// Inside <head>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+import { Toaster } from "react-hot-toast";
 
+// Fonts
+import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 
-// Define fonts
 const inter = Inter({ subsets: ["latin"] });
 
 const geistSans = Geist({
@@ -25,13 +24,19 @@ export const metadata = {
   description: "Description here",
 };
 
-// Root Layout
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-white"> {/* Ensure background is white */}
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className={`bg-white text-black ${inter.className} ${geistSans.variable} ${geistMono.variable}`}>
         <Navbar />
-        <div className="bg-white text-black">{children}</div> {/* Ensure full-page white background */}
+        <Toaster position="top-center" />
+        <main>{children}</main>
       </body>
     </html>
   );

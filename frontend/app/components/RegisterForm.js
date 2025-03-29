@@ -17,19 +17,13 @@ const RegisterForm = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // 🔁 Send user to Django backend
       await fetch("http://127.0.0.1:8000/api/users/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: user.email,
-          uid: user.uid,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: user.email, uid: user.uid }),
       });
 
-      toast.success("Registration successful!");
+      toast.success("Registered successfully!");
       setEmail("");
       setPassword("");
     } catch (error) {
@@ -40,9 +34,8 @@ const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleRegister} className="max-w-md mx-auto bg-white p-6 rounded-xl shadow">
-      <h2 className="text-xl font-bold mb-4 text-center">Register</h2>
-
+    <form onSubmit={handleRegister} className="max-w-md mx-auto p-6 bg-white rounded shadow">
+      <h2 className="text-xl font-bold mb-4">Register</h2>
       <input
         type="email"
         placeholder="Email"
@@ -51,7 +44,6 @@ const RegisterForm = () => {
         onChange={(e) => setEmail(e.target.value)}
         required
       />
-
       <input
         type="password"
         placeholder="Password"
@@ -60,11 +52,10 @@ const RegisterForm = () => {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+        className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
       >
         {loading ? "Registering..." : "Register"}
       </button>

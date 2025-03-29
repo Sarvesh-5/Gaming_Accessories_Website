@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+.containerWrapper {
+  height: 150vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* change from center to flex-start */
+  padding-top: 40px; /* adjust the top spacing as needed */
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+
+.container {
+  max-width: 450px;
+  background: linear-gradient(0deg, #fff 0%, #f4f7fb 100%);
+  border-radius: 30px;
+  padding: 25px 30px;
+  box-shadow: rgba(133, 189, 215, 0.88) 0px 30px 30px -20px;
+  text-align: center;
+  width: 100%;
+}
+
+/* ...rest of the styles here... */
+
+
+.heading {
+  font-weight: 900;
+  font-size: 28px;
+  color: rgb(16, 137, 211);
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
+  background: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 20px;
+  margin: 10px 0;
+  font-size: 14px;
+  box-shadow: #cff0ff 0px 10px 10px -5px;
+  border-inline: 2px solid transparent;
+}
+
+.input:focus {
+  outline: none;
+  border-inline: 2px solid #12B1D1;
+}
+
+.input::placeholder {
+  color: rgb(170, 170, 170);
+}
+
+.forgotPassword {
+  display: block;
+  text-align: left;
+  font-size: 12px;
+  margin-top: 8px;
+  margin-left: 5px;
+}
+
+.forgotPassword a {
+  color: #0099ff;
+  text-decoration: none;
+}
+
+.registerButton {
+  width: 100%;
+  font-weight: bold;
+  background: linear-gradient(45deg, rgb(16, 137, 211), rgb(18, 177, 209));
+  color: white;
+  padding: 12px;
+  margin: 20px auto 10px;
+  border-radius: 20px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.registerButton:hover {
+  transform: scale(1.03);
+}
+
+.registerButton:active {
+  transform: scale(0.95);
+}
+
+.redirectText {
+  font-size: 13px;
+  color: rgb(90, 90, 90);
+}
+
+.redirectLink {
+  color: #0099ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.socialAccountContainer {
+  margin-top: 20px;
+}
+
+.title {
+  text-align: center;
+  font-size: 12px;
+  color: rgb(170, 170, 170);
+  margin-top: 10px;
+}
+
+.socialAccounts {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.socialButton {
+  background: linear-gradient(45deg, #000, #707070);
+  border: 4px solid white;
+  padding: 5px;
+  border-radius: 50%;
+  width: 40px;
+  aspect-ratio: 1;
+  display: grid;
+  place-content: center;
+  box-shadow: rgba(133, 189, 215, 0.9) 0px 12px 10px -8px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.socialButton .svg {
+  fill: white;
+  width: 22px; /* Bigger Icons */
+  height: 22px;
+}
+.socialButton:hover {
+  transform: scale(1.15);
+}
+
+.socialButton:active {
+  transform: scale(0.9);
+}
