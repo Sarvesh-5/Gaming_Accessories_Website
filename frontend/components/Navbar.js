@@ -6,6 +6,8 @@ import { FiUser, FiMenu, FiHeart } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import localFont from "next/font/local";
 import useStore from "@/app/store/useStore";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "@/app/firebase/firebaseConfig";
 
 const Blacknorth = localFont({ src: "../public/fonts/Blacknorthdemo-mLE25.otf" });
 
@@ -13,10 +15,10 @@ const Navbar = () => {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [menuOpen, setMenuOpen] = useState(false);
+  const [userName, setUserName] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { cart } = useStore();
   const cartItemCount = cart.length;
-
-  // Sticky navbar logic
   const navRef = useRef(null);
   const [isSticky, setIsSticky] = useState(false);
 
@@ -31,9 +33,24 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserName(user.displayName || user.email);
+      } else {
+        setUserName(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    setDropdownOpen(false);
+  };
+
   return (
     <>
-      {/* Scrolling banner on home */}
       {isHomePage && (
         <div className="bg-[#83b735] text-white text-center py-2 text-sm font-bold uppercase">
           <marquee behavior="scroll" direction="left" scrollamount="6">
@@ -45,10 +62,8 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* Sticky trigger */}
       <div ref={navRef} className="h-[0px]" />
 
-      {/* Sticky navbar */}
       <nav className={`w-full z-50 transition-all duration-300 ${isSticky ? 'fixed top-0 bg-white shadow-md' : 'relative'}`}>
         <div className="flex items-center px-8 py-3 justify-between">
           <Link href="/">
@@ -57,18 +72,15 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Nav links */}
           <div className="hidden md:flex space-x-8 text-lg font-semibold uppercase">
-            {["Home", "Products", "About", "Contact"].map((tab) => {
-              const route = tab === "Home" ? "/" : `/${tab.toLowerCase()}`;
+            {['Home', 'Products', 'About', 'Contact'].map((tab) => {
+              const route = tab === 'Home' ? '/' : `/${tab.toLowerCase()}`;
               return (
                 <Link
                   key={tab}
                   href={route}
                   className={`px-3 py-2 rounded-md transition ${
-                    pathname === route
-                      ? "bg-[#83b735] text-white"
-                      : "hover:bg-[#83b735] hover:text-white text-black"
+                    pathname === route ? 'bg-[#83b735] text-white' : 'hover:bg-[#83b735] hover:text-white text-black'
                   }`}
                 >
                   {tab}
@@ -77,14 +89,10 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* Right icons */}
           <div className="flex items-center space-x-6 mr-[5%] relative">
-            {/* Wishlist */}
             <Link href="/wishlist" className="relative">
               <FiHeart size={24} className="hover:text-[#FF4655] text-black cursor-pointer" />
             </Link>
-
-            {/* Cart */}
             <Link href="/cart" className="relative">
               <HiOutlineShoppingBag size={26} className="hover:text-[#FF4655] text-black cursor-pointer" />
               {cartItemCount > 0 && (
@@ -94,12 +102,28 @@ const Navbar = () => {
               )}
             </Link>
 
-            {/* 🔐 Login icon (redirects to /login) */}
-            <Link href="/login">
-              <FiUser size={26} className="cursor-pointer hover:text-[#FF4655] text-black" />
-            </Link>
+            {!userName ? (
+              <Link href="/login">
+                <FiUser size={26} className="cursor-pointer hover:text-[#FF4655] text-black" />
+              </Link>
+            ) : (
+              <div className="relative">
+                <button onClick={() => setDropdownOpen(!dropdownOpen)} className="text-black font-medium hover:text-[#FF4655]">
+                  {userName.split('@')[0]}
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-md py-2 text-sm">
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
-            {/* Mobile menu toggle */}
             <button className="md:hidden text-3xl" onClick={() => setMenuOpen(!menuOpen)}>
               <FiMenu />
             </button>
@@ -107,7 +131,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu Drawer */}
       {menuOpen && (
         <>
           <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setMenuOpen(false)} />
@@ -116,18 +139,16 @@ const Navbar = () => {
               <Link href="/" onClick={() => setMenuOpen(false)}>
                 <div className={`${Blacknorth.className} text-2xl font-bold uppercase`}>GG LOOTBOX</div>
               </Link>
-              <button onClick={() => setMenuOpen(false)} className="text-3xl">
-                &times;
-              </button>
+              <button onClick={() => setMenuOpen(false)} className="text-3xl">&times;</button>
             </div>
             <ul className="p-6 space-y-6 text-lg font-semibold">
-              {["Home", "Products", "About", "Contact"].map((tab) => {
-                const route = tab === "Home" ? "/" : `/${tab.toLowerCase()}`;
+              {['Home', 'Products', 'About', 'Contact'].map((tab) => {
+                const route = tab === 'Home' ? '/' : `/${tab.toLowerCase()}`;
                 return (
                   <li key={tab}>
                     <Link
                       href={route}
-                      className={`block py-2 ${pathname === route ? "text-[#83b735]" : "text-black"}`}
+                      className={`block py-2 ${pathname === route ? 'text-[#83b735]' : 'text-black'}`}
                       onClick={() => setMenuOpen(false)}
                     >
                       {tab}
@@ -135,11 +156,12 @@ const Navbar = () => {
                   </li>
                 );
               })}
-              {/* Add Login in mobile menu */}
               <li>
-                <Link href="/login" onClick={() => setMenuOpen(false)} className="block py-2 text-black">
-                  Login
-                </Link>
+                {!userName ? (
+                  <Link href="/login" onClick={() => setMenuOpen(false)} className="block py-2 text-black">Login</Link>
+                ) : (
+                  <button onClick={handleLogout} className="block py-2 text-left w-full text-black">Logout</button>
+                )}
               </li>
             </ul>
           </div>

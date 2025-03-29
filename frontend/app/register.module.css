@@ -142,3 +142,30 @@
 .socialButton:active {
   transform: scale(0.9);
 }
+.googleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: white;
+  color: #444;
+  border: 1px solid #ddd;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.googleButton:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.googleLogo {
+  width: 24px;
+  height: 24px;
+}
+
