@@ -1,88 +1,93 @@
-/* Updated login page with UI and Firebase + Backend logic */
-
-'use client';
+"use client";
 import React, { useState } from "react";
 import styles from "../Login.module.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { auth } from "../firebase/firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { toast } from "react-hot-toast";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const router = useRouter();
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      toast.success("Logged in successfully!");
-    } catch (firebaseError) {
-      // Fallback: check backend if user exists
-      try {
-        const res = await fetch(`http://127.0.0.1:8000/api/users/check/?email=${email}`);
-        const data = await res.json();
-
-        if (res.ok && data.exists) {
-          toast.error("User exists in backend but not linked to Firebase. Please register.");
-        } else {
-          toast.error("User not found. Please register.");
-        }
-      } catch (err) {
-        toast.error("Server error. Please try again.");
-      }
+      setShowSuccess(true); // show message
+      setTimeout(() => {
+        setShowSuccess(false);
+        router.push("/");
+      }, 2000); // wait then go home
+    } catch (error) {
+      alert(error.message);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleForgotPassword = () => {
+    if (!email) {
+      alert("Please enter your email first.");
+      return;
+    }
+    sendPasswordResetEmail(auth, email)
+      .then(() => alert("Password reset email sent."))
+      .catch((error) => alert(error.message));
+  };
+
   return (
-    <div className={styles.container}>
-      <div className={styles.heading}>Sign In</div>
-      <form className={styles.form} onSubmit={handleLogin}>
-        <input
-          required
-          className={styles.input}
-          type="email"
-          name="email"
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          required
-          className={styles.input}
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+    <div className={styles.containerWrapper}>
+      <div className={styles.container}>
+        <div className={styles.heading}>Sign In</div>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <input
+            required
+            className={styles.input}
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            required
+            className={styles.input}
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <span className={styles.forgotPassword}>
-          <a href="#">Forgot Password?</a>
-        </span>
+          <span className={styles.forgotPassword}>
+            <a href="#" onClick={(e) => { e.preventDefault(); handleForgotPassword(); }}>
+              Forgot Password?
+            </a>
+          </span>
 
-        <input
-          className={styles.loginButton}
-          type="submit"
-          value={loading ? "Signing in..." : "Sign In"}
-        />
-      </form>
+          <input
+            className={styles.loginButton}
+            type="submit"
+            value={loading ? "Signing in..." : "Sign In"}
+          />
+        </form>
 
-      <p className={styles.redirectText}>
-        Don't have an account? {" "}
-        <Link href="/register" className={styles.redirectLink}>Sign up</Link>
-      </p>
+        <p className={styles.redirectText}>
+          Don't have an account?{" "}
+          <Link href="/register" className={styles.redirectLink}>Sign up</Link>
+        </p>
 
-      <div className={styles.socialAccountContainer}>
-        <span className={styles.title}>Or Sign in with</span>
-        <div className={styles.socialAccounts}>
-          <button className={styles.socialButton}> {/* Google */}
-          <svg
+        <div className={styles.socialAccountContainer}>
+          <span className={styles.title}>Or Sign in with</span>
+          <div className={styles.socialAccounts}>
+            <button className={styles.socialButton}>
+            <svg
                 className={styles.svg}
                 xmlns="http://www.w3.org/2000/svg"
                 height="1em"
@@ -110,9 +115,35 @@ const Login = () => {
               >
                 <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path>
                 </svg>
-          </button>
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* ✅ Success Overlay */}
+      {showSuccess && (
+        <div style={{
+          position: "fixed",
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: "rgba(0,0,0,0.5)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 9999
+        }}>
+          <div style={{
+            background: "white",
+            padding: "30px 40px",
+            borderRadius: "20px",
+            boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+            textAlign: "center",
+            animation: "popIn 0.3s ease-out"
+          }}>
+            <h2 style={{ color: "#12B1D1", fontSize: "24px", fontWeight: "bold" }}>🎉 Login Successful!</h2>
+            <p style={{ fontSize: "14px", marginTop: "10px" }}>Redirecting to homepage...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
