@@ -180,14 +180,7 @@ h1 {
   }
 }
 
-/* Hide scrollbar across browsers */
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-none {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
+
 
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
@@ -199,5 +192,9 @@ html {
   height: 100%;
   font-family: 'Poppins', sans-serif;
   background: #f0f2f5;
-  overflow: hidden;
+  overflow: auto;
+}
+
+html {
+  scroll-behavior: smooth;
 }

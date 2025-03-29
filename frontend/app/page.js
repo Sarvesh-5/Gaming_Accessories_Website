@@ -5,6 +5,7 @@ import LevelUpBanner from '@/components/LevelUpBanner';
 import SpecialOffers from '@/components/SpecialOffers';
 import Testimonials from '@/components/Testimonials';
 import Footer from "@/components/Footer";
+
 export default function Home() {
   return (
     <main>
@@ -12,10 +13,17 @@ export default function Home() {
       <ProductCategories />
       <ProductSection />
       <LevelUpBanner />
-      <SpecialOffers />
-      <Testimonials />
+      
+      {/* Scroll Target Section */}
+      <section id="SpecialOffers">
+        <SpecialOffers />
+      </section>
+
+      <section id="Testimonials">
+        <Testimonials />
+      </section>
+
       <Footer />
     </main>
   );
 }
-
