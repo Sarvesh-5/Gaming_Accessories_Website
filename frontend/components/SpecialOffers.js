@@ -2,15 +2,18 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import useStore from '@/app/store/useStore';
+import { toast } from 'react-hot-toast';
 
 const products = [
   {
     id: 1,
-    name: 'Airpods Max',
-    category: 'Airpods Max',
-    price: 12999,
-    originalPrice: 15999,
+    name: 'Mouse pad',
+    category: 'Track pad',
+    price: 129,
+    originalPrice: 599,
     rating: 3.5,
+    image: '/products/Homepage/keypad/colour1.png',
     variants: [
       '/products/Homepage/keypad/colour1.png',
       '/products/Homepage/keypad/colour2.png',
@@ -20,11 +23,12 @@ const products = [
   },
   {
     id: 2,
-    name: 'Airpods Max',
-    category: 'Airpods Max',
-    price: 12999,
-    originalPrice: 15999,
+    name: 'Zebronics Mouse',
+    category: 'mouse',
+    price: 1299,
+    originalPrice: 1899,
     rating: 4.5,
+    image: '/products/Homepage/mouse/colour1.png',
     variants: [
       '/products/Homepage/mouse/colour1.png',
       '/products/Homepage/mouse/colour2.png',
@@ -92,6 +96,13 @@ export default function SpecialOffers() {
   const endTimes = {
     1: new Date().getTime() + 120 * 24 * 60 * 60 * 1000,
     2: new Date().getTime() + 120 * 24 * 60 * 60 * 1000,
+  };
+
+  const { addToCart } = useStore();
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    toast.success(`${product.name} added to cart ✅`);
   };
 
   const [timers, setTimers] = useState({
@@ -162,7 +173,12 @@ export default function SpecialOffers() {
                       className={`w-12 h-12 border cursor-pointer rounded overflow-hidden p-1 ${
                         selectedImage[product.id] === img ? 'ring-2 ring-[#83b735]' : ''
                       }`}
-                      onClick={() => setSelectedImage((prev) => ({ ...prev, [product.id]: img }))}
+                      onClick={() =>
+                        setSelectedImage((prev) => ({
+                          ...prev,
+                          [product.id]: img,
+                        }))
+                      }
                     >
                       <Image src={img} alt="" width={40} height={40} />
                     </div>
@@ -181,9 +197,14 @@ export default function SpecialOffers() {
                 </p>
                 <div className="mb-3">{renderStars(product.rating)}</div>
 
-                <button className="bg-[#83b735] text-white px-6 py-2 rounded hover:bg-green-700 transition mb-5">
-                  Add to Cart
-                </button>
+                <div className="mb-5">
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className="bg-[#83b735] text-white px-6 py-2 rounded hover:bg-green-700 transition"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
 
                 <p className="text-sm text-black mb-3">Hurry Up sale ends in:</p>
                 <div className="flex gap-2 md:gap-4">

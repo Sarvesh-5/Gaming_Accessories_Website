@@ -1,10 +1,12 @@
-"use client";
+'use client';
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSearch, FiMenu } from "react-icons/fi";
+import { useRouter } from "next/navigation"; // ✅ Added
+
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -53,14 +55,10 @@ const imageVariants = {
 const Hero = () => {
   const sectionRef = useRef(null);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
-
-  // useEffect(() => {
-  //   sectionRef.current?.scrollIntoView({ behavior: "smooth" });
-  // }, []);
+  const router = useRouter(); // ✅
 
   return (
     <section ref={sectionRef} className="w-full bg-[#DCDCDC] overflow-hidden min-h-[600px]">
-
       {/* Second Navbar */}
       <div className="bg-[#DCDCDC] py-4 mb-10 px-4 md:px-8">
         <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -106,7 +104,6 @@ const Hero = () => {
 
           {/* Offer Links */}
           <div className="hidden md:flex items-center gap-x-6 text-sm font-semibold text-black md:translate-x-[-20px]">
-
             <span className="cursor-pointer hover:text-[#83b735]">Special Offer</span>
             <span className="border-l border-black h-5"></span>
             <span className="cursor-pointer hover:text-[#83b735]">Website Reviews</span>
@@ -169,11 +166,7 @@ const Hero = () => {
                       >
                         <button
                           className="px-6 py-3 bg-white text-black text-base font-semibold rounded-md hover:bg-gray-100 transition"
-                          onClick={() =>
-                            document
-                              .getElementById("next-section")
-                              ?.scrollIntoView({ behavior: "smooth" })
-                          }
+                          onClick={() => router.push('/products')} // ✅ Navigates to products page
                         >
                           Shop by Category
                         </button>

@@ -1,10 +1,12 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { FiHeart } from 'react-icons/fi';
 import { FcLike } from 'react-icons/fc';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
+import useStore from '@/app/store/useStore';
+import toast from 'react-hot-toast';
+
 
 const allProducts = [
   {
@@ -90,21 +92,12 @@ const allProducts = [
 ];
 
 export default function AllProductsPage() {
-  const [liked, setLiked] = useState({});
-  const [cart, setCart] = useState([]);
+  const { wishlist, toggleWishlist, addToCart } = useStore();
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const itemsPerPage = 16;
-
-  const toggleWishlist = (id) => {
-    setLiked((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
-
-  const addToCart = (product) => {
-    setCart((prev) => [...prev, product]);
-  };
 
   const filtered = useMemo(() => {
     let products = category === "All" ? allProducts : allProducts.filter((p) => p.category === category);
@@ -132,38 +125,24 @@ export default function AllProductsPage() {
 
   return (
     <>
-      {/* Hero with background */}
-      <section
-        className="relative bg-cover bg-center bg-no-repeat py-28 px-4 md:px-16 font-sans"
-        style={{ backgroundImage: "url('/background.jpg')" }}
-      >
+      {/* Hero Section */}
+      <section className="relative bg-cover bg-center bg-no-repeat py-28 px-4 md:px-16 font-sans" style={{ backgroundImage: "url('/background.jpg')" }}>
         <div className="absolute inset-0 bg-black/50 z-0" />
         <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <motion.h4
-            className="text-sm text-green-400 font-semibold mb-2 tracking-wider uppercase"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-          >
+          <motion.h4 className="text-sm text-green-400 font-semibold mb-2 tracking-wider uppercase" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
             PRODUCTS
           </motion.h4>
-
-          <motion.h2
-            className="text-4xl md:text-5xl font-bold mb-6 text-white"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <motion.h2 className="text-4xl md:text-5xl font-bold mb-6 text-white" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
             All Products
           </motion.h2>
         </div>
       </section>
 
-      {/* Main Section */}
+      {/* Product Section */}
       <section className="bg-white py-16 px-4 md:px-16 font-sans">
         <div className="max-w-7xl mx-auto">
 
-          {/* Filters + Sort */}
+          {/* Filters */}
           <div className="flex flex-wrap gap-4 mb-6 justify-center">
             {uniqueCategories.map((cat) => (
               <button
@@ -176,11 +155,7 @@ export default function AllProductsPage() {
                 {cat}
               </button>
             ))}
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value)}
-              className="border px-4 py-2 rounded-md text-sm"
-            >
+            <select value={sort} onChange={(e) => setSort(e.target.value)} className="border px-4 py-2 rounded-md text-sm">
               <option value="">Sort by</option>
               <option value="asc">Price: Low to High</option>
               <option value="desc">Price: High to Low</option>
@@ -198,59 +173,68 @@ export default function AllProductsPage() {
             />
           </div>
 
-          {/* Products Grid */}
+          {/* Product Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {paginated.map((product, index) => (
-              <motion.div
-                key={product.id}
-                className="bg-white border border-gray-100 shadow-md overflow-hidden group transition-all duration-300 relative"
-                initial={{ opacity: 0, y: 80 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.6, ease: 'easeOut' }}
-              >
-                <div className="absolute top-3 right-3 z-20 -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-in-out">
-                  <button
-                    className={`bg-white p-2 rounded-full shadow transition-colors duration-300 ${
-                      liked[product.id] ? "text-red-500" : "text-black"
-                    }`}
-                    onClick={() => toggleWishlist(product.id)}
-                  >
-                    {liked[product.id] ? <FcLike size={20} /> : <FiHeart size={18} />}
-                  </button>
-                </div>
+            {paginated.map((product, index) => {
+              const isWished = wishlist.some(item => item.id === product.id);
+              return (
+                <motion.div
+                  key={product.id}
+                  className="bg-white border border-gray-100 shadow-md overflow-hidden group transition-all duration-300 relative"
+                  initial={{ opacity: 0, y: 80 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05, duration: 0.6, ease: 'easeOut' }}
+                >
+                  {/* Wishlist */}
+                  <div className="absolute top-3 right-3 z-20 -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                    <button
+                      className={`bg-white p-2 rounded-full shadow transition-colors duration-300 ${
+                        isWished ? "text-red-500" : "text-black"
+                      }`}
+                      onClick={() => toggleWishlist(product)}
+                    >
+                      {isWished ? <FcLike size={20} /> : <FiHeart size={18} />}
+                    </button>
+                  </div>
 
-                <Link href={`/product/${product.slug}`}>
-                  <div className="bg-white p-[6px] cursor-pointer">
+                  {/* Image and Add to Cart */}
+                  <div className="bg-white p-[6px]">
                     <div className="relative bg-[#FAF7F7] h-72 flex items-center justify-center group">
                       <img
                         src={product.image}
                         alt={product.title}
                         className="h-44 w-auto object-contain"
                       />
-                      <button className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 bg-[#83b735] text-white text-sm font-semibold px-8 py-[10px] rounded-md transition-all duration-500 ease-in-out hover:bg-black whitespace-nowrap">
+                      <button
+                        onClick={() => {
+                          addToCart(product);
+                          toast.success(`${product.title} added to cart`);
+                        }}
+                        className="absolute bottom-0 left-1/2 z-30 -translate-x-1/2 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 bg-[#83b735] text-white text-sm font-semibold px-8 py-[10px] rounded-md transition-all duration-500 ease-in-out hover:bg-black whitespace-nowrap"
+                      >
                         ADD TO CART
                       </button>
+
                     </div>
                   </div>
-                </Link>
 
-                <div className="px-6 py-6 text-center">
-                  <Link href={`/product/${product.slug}`}>
-                    <h1 className="text-lg font-semibold text-black hover:text-[#83b735] transition cursor-pointer">
-                      {product.title}
-                    </h1>
-                  </Link>
-                  <p className="text-sm text-black-500">{product.category}</p>
-                  <p className="text-green-600 font-bold text-sm mt-2 mb-2">
-                    ₹ {product.price.toLocaleString('en-IN', { minimumFractionDigits: 2 })} INR
-                  </p>
-                  <p className="text-sm text-black-500 leading-relaxed">
-                    {product.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                  {/* Product Info */}
+                  <div className="px-6 py-6 text-center">
+                    <Link href={`/product/${product.slug}`}>
+                      <h1 className="text-lg font-semibold text-black hover:text-[#83b735] transition cursor-pointer">
+                        {product.title}
+                      </h1>
+                    </Link>
+                    <p className="text-sm text-black-500">{product.category}</p>
+                    <p className="text-green-600 font-bold text-sm mt-2 mb-2">
+                      ₹ {product.price.toLocaleString('en-IN', { minimumFractionDigits: 2 })} INR
+                    </p>
+                    <p className="text-sm text-black-500 leading-relaxed">{product.description}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* Pagination */}

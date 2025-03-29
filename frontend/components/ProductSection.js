@@ -1,21 +1,26 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiHeart, FiShoppingCart,} from 'react-icons/fi';
+import { FiHeart } from 'react-icons/fi';
 import { FcLike } from 'react-icons/fc';
+import useStore from '@/app/store/useStore';
+import Image from 'next/image';
+import Link from 'next/link';
+import { toast } from 'react-hot-toast';
 
 const products = [
   {
     id: 1,
+    slug: 'ear-buds',
     title: 'Ear Buds',
     category: 'Wireless Audio',
     price: 4000,
-    description:
-      'Premium ear buds with immersive sound, deep bass, and noise cancellation for a wireless music experience.',
+    description: 'Premium ear buds with immersive sound, deep bass, and noise cancellation for a wireless music experience.',
     image: '/products/Homepage/buds.png',
   },
   {
     id: 2,
+    slug: 'phone-cooler',
     title: 'Phone Cooler',
     category: 'Cooler',
     price: 1200,
@@ -24,6 +29,7 @@ const products = [
   },
   {
     id: 3,
+    slug: 'speaker-amplifier',
     title: 'Speaker Amplifier',
     category: 'Speaker',
     price: 15000,
@@ -32,14 +38,16 @@ const products = [
   },
   {
     id: 4,
+    slug: 'steering-wheel-set',
     title: 'Steering Wheel Set',
     category: 'Gaming Accessory',
     price: 12000,
-    description: 'Experience real driving with a responsive force feedback steering wheel and pedal set — perfect for racing games.',
+    description: 'Responsive wheel with pedal set for racing games.',
     image: '/products/Homepage/steering.png',
   },
   {
     id: 5,
+    slug: 'game-joystick',
     title: 'Game Joystick',
     category: 'Joystick',
     price: 956,
@@ -48,6 +56,7 @@ const products = [
   },
   {
     id: 6,
+    slug: 'gaming-mouse',
     title: 'Gaming Mouse',
     category: 'Mouse',
     price: 1199,
@@ -56,6 +65,7 @@ const products = [
   },
   {
     id: 7,
+    slug: 'gaming-chair',
     title: 'Gaming Chair',
     category: 'Chair',
     price: 9000,
@@ -64,6 +74,7 @@ const products = [
   },
   {
     id: 8,
+    slug: 'gaming-headphones',
     title: 'Gaming Headphones',
     category: 'Headphones',
     price: 4500,
@@ -73,17 +84,11 @@ const products = [
 ];
 
 export default function ProductSection() {
-  const [wishlist, setWishlist] = useState([]);
-  const [liked, setLiked] = useState({});
+  const { wishlist, toggleWishlist, addToCart } = useStore();
 
-  const toggleWishlist = (productId) => {
-    setLiked((prev) => ({ ...prev, [productId]: !prev[productId] }));
-
-    setWishlist((prev) =>
-      liked[productId]
-        ? prev.filter((id) => id !== productId)
-        : [...prev, productId]
-    );
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    toast.success(`${product.title} added to cart ✅`);
   };
 
   return (
@@ -99,65 +104,68 @@ export default function ProductSection() {
           Trendy Products
         </motion.h2>
 
-        {/* Product Grid */}
-        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((product, index) => (
-            <motion.div
-              key={product.id}
-              className="bg-white border border-gray-100 shadow-md overflow-hidden group transition-all duration-300 relative"
-              initial={{ opacity: 0, y: 80 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05, duration: 0.6, ease: 'easeOut' }}
-            >
-              {/* Wishlist Icon */}
-              <div className="absolute top-3 right-3 z-20 -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-in-out">
-                <button
-                  className={`bg-white p-2 rounded-full shadow transition-colors duration-300 ${
-                    liked[product.id] ? 'text-red-500' : 'text-black'
-                  }`}
-                  onClick={() => toggleWishlist(product.id)}
-                >
-                  {liked[product.id] ? <FcLike size={20} /> : <FiHeart size={18} />}
+          {products.map((product, index) => {
+            const isWished = wishlist.some((item) => item.id === product.id);
+            return (
+              <motion.div
+                key={product.id}
+                className="bg-white border border-gray-100 shadow-md overflow-hidden group transition-all duration-300 relative"
+                initial={{ opacity: 0, y: 80 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05, duration: 0.6, ease: 'easeOut' }}
+              >
+                {/* Wishlist Button */}
+                <div className="absolute top-3 right-3 z-20 -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                  <button
+                    className={`bg-white p-2 rounded-full shadow transition-colors duration-300 ${
+                      isWished ? 'text-red-500' : 'text-black'
+                    }`}
+                    onClick={() => toggleWishlist(product)}
+                  >
+                    {isWished ? <FcLike size={20} /> : <FiHeart size={18} />}
+                  </button>
+                </div>
 
-                </button>
-              </div>
+                {/* Product Image + Add to Cart */}
+                <div className="bg-white p-[6px]">
+                  <div className="relative bg-[#FAF7F7] h-72 flex items-center justify-center group">
+                    <Link href={`/product/${product.slug}`}>
+                      <Image
+                        src={product.image}
+                        alt={product.title}
+                        width={200}
+                        height={200}
+                        className="object-contain h-44 w-auto cursor-pointer"
+                      />
+                    </Link>
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 bg-[#83b735] text-white text-sm font-semibold px-8 py-[10px] rounded-md transition-all duration-500 ease-in-out hover:bg-black whitespace-nowrap"
+                    >
+                      ADD TO CART
+                    </button>
+                  </div>
+                </div>
 
-              {/* Image Section */}
-              <div className="bg-white p-[6px]">
-              <div className="relative bg-[#FAF7F7] h-72 flex items-center justify-center group">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="h-44 w-auto object-contain"
-                />
-
-                {/* Add to Cart Button */}
-                <button className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 bg-[#83b735] text-white text-sm font-semibold px-8 py-[10px] rounded-md transition-all duration-500 ease-in-out hover:bg-black whitespace-nowrap">
-                  ADD TO CART
-                </button>
-              </div></div>
-
-              {/* Info Section */}
-              <div className="px-6 py-6 text-center">
-                <h1 className="text-lg font-semibold text-black">{product.title}</h1>
-                <p className="text-sm text-black-500">{product.category}</p>
-                <p className="text-green-600 font-bold text-sm mt-2 mb-2">
-                  ₹ {product.price.toLocaleString('en-IN', { minimumFractionDigits: 2 })} INR
-                </p>
-                <p className="text-sm text-black-500 leading-relaxed">
-                  {product.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+                {/* Product Info */}
+                <div className="px-6 py-6 text-center">
+                  <Link href={`/product/${product.slug}`}>
+                    <h1 className="text-lg font-semibold text-black hover:text-[#83b735] cursor-pointer transition">
+                      {product.title}
+                    </h1>
+                  </Link>
+                  <p className="text-sm text-black-500">{product.category}</p>
+                  <p className="text-green-600 font-bold text-sm mt-2 mb-2">
+                    ₹ {product.price.toLocaleString('en-IN', { minimumFractionDigits: 2 })} INR
+                  </p>
+                  <p className="text-sm text-black-500 leading-relaxed">{product.description}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-
-        {/* Optional: Debug Wishlist Output */}
-        {/* <pre className="text-xs mt-10 bg-gray-100 p-4">
-          Wishlist: {JSON.stringify(wishlist, null, 2)}
-        </pre> */}
       </div>
     </section>
   );

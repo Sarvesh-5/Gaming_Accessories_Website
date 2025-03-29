@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-l!k4+y_jl0*eim$h*zwk_n)3sh^z2f=e2yr2(y1m6)pl*1d@3-"
+SECRET_KEY = "django-insecure-rbzj$%3y2hm-+v6i*-+qiefm9qw)az1_rnlmtyh)si-+targ+t"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,14 +38,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",  # For API support
-    "corsheaders",  # To allow frontend to connect
-    "users",  # Your custom app (replace with app name)
+    'rest_framework',
+    'corsheaders',
+    'gg_lootbox',
 ]
 
-
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -52,9 +51,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
-
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 ROOT_URLCONF = "backend.urls"
 
 TEMPLATES = [
@@ -127,6 +128,3 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Allow frontend to communicate
-]
