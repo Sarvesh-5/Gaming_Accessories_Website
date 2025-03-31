@@ -51,7 +51,7 @@ export default function WishcartPage() {
                 </Link>
 
                 {/* Details */}
-                <div className="p-5 text-center text-white">
+                <div className="p-5 text-center text-black">
                   <Link href={`/product/${product.slug}`}>
                     <h2 className="text-xl font-semibold hover:text-[#83b735] transition">
                       {product.title}

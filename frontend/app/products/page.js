@@ -9,99 +9,25 @@ import useStore from '@/app/store/useStore';
 import toast from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
 
-const allProducts = [
-  {
-    id: 1,
-    slug: "buds",
-    title: "Ear Buds",
-    category: "Wireless Audio",
-    price: 4000,
-    description: "Premium ear buds with immersive sound and noise cancellation.",
-    image: "/products/Homepage/buds.png",
-  },
-  {
-    id: 2,
-    slug: "cooler",
-    title: "Phone Cooler",
-    category: "Cooler",
-    price: 1200,
-    description: "Reduces temperature and ensures smooth gaming performance.",
-    image: "/products/Homepage/cooler.png",
-  },
-  {
-    id: 3,
-    slug: "speaker",
-    title: "Speaker Amplifier",
-    category: "Speaker",
-    price: 15000,
-    description: "Boosts sound output with clearer, louder audio.",
-    image: "/products/Homepage/speaker.png",
-  },
-  {
-    id: 4,
-    slug: "steering",
-    title: "Steering Wheel Set",
-    category: "Gaming Accessory",
-    price: 12000,
-    description: "Responsive wheel with pedal set for racing games.",
-    image: "/products/Homepage/steering.png",
-  },
-  {
-    id: 5,
-    slug: "joystick",
-    title: "Game Joystick",
-    category: "Joystick",
-    price: 956,
-    description: "Ergonomic joystick with wireless connectivity.",
-    image: "/products/Homepage/joystick.png",
-  },
-  {
-    id: 6,
-    slug: "mouse",
-    title: "Gaming Mouse",
-    category: "Mouse",
-    price: 1199,
-    description: "High DPI mouse with programmable buttons and RGB.",
-    image: "/products/Homepage/mouse.png",
-  },
-  {
-    id: 7,
-    slug: "chair",
-    title: "Gaming Chair",
-    category: "Chair",
-    price: 9000,
-    description: "Ergonomic chair for long gaming sessions.",
-    image: "/products/Homepage/gaming-chair.png",
-  },
-  {
-    id: 8,
-    slug: "headphones",
-    title: "Gaming Headphones",
-    category: "Headphones",
-    price: 4500,
-    description: "Surround sound headphones with noise cancellation.",
-    image: "/products/Homepage/headphones.png",
-  },
-  {
-    id: 9,
-    slug: 'zebronics-havoc',
-    title: 'Zebronics Headphone',
-    category: 'Headphones',
-    price: 4500,
-    description: 'Surround sound headphones with noise cancellation.',
-    image: '/products/Headphones/zebronics-havoc/pic1.jpg',
-  },
-];
-
 export default function AllProductsPage() {
   const { wishlist, toggleWishlist, addToCart } = useStore();
   const searchParams = useSearchParams();
 
+  const [allProducts, setAllProducts] = useState([]);
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const itemsPerPage = 16;
+
+  useEffect(() => {
+    fetch("http://localhost:8000/api/products/")
+      .then((res) => res.json())
+      .then((data) => setAllProducts(data))
+      .catch((err) => {
+        console.error("Error fetching products:", err);
+      });
+  }, []);
 
   useEffect(() => {
     const paramCategory = searchParams.get("category");
@@ -128,7 +54,7 @@ export default function AllProductsPage() {
     if (sort === "asc") products = [...products].sort((a, b) => a.price - b.price);
     if (sort === "desc") products = [...products].sort((a, b) => b.price - a.price);
     return products;
-  }, [category, sort, search]);
+  }, [allProducts, category, sort, search]);
 
   const paginated = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;

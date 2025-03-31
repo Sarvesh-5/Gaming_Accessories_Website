@@ -59,6 +59,11 @@ const useStore = create((set, get) => ({
         .filter(item => item.quantity > 0),
     }));
   },
+
+  // ✅ Clear cart after payment success
+  clearCart: () => {
+    set({ cart: [] });
+  },
 }));
 
 export default useStore;

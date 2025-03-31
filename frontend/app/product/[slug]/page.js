@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { FiHeart } from 'react-icons/fi';
 import { FcLike } from 'react-icons/fc';
 import { useMemo } from 'react'; 
+import useStore from '@/app/store/useStore';
 
 const productDataMap = {
   'zebronics-havoc': {
@@ -80,11 +81,9 @@ export default function ProductPage() {
   const product = productDataMap[slug];
   const [selectedImage, setSelectedImage] = useState(product?.images?.[0]);
   const [location, setLocation] = useState('Fetching your location...');
-  const [wishlist, setWishlist] = useState(false);
+  const { wishlist, addToWishlist, removeFromWishlist, cart, addToCart } = useStore();
   const [showFullDesc, setShowFullDesc] = useState(false);
   const [visibleReviews, setVisibleReviews] = useState(6);
-  const [liked, setLiked] = useState({});
-
   const allProducts = [
     {
       id: 1,
@@ -168,9 +167,12 @@ const recommendedProducts = useMemo(() => {
 }, [product]);
 
 
-  const toggleWishlist = (id) => {
-    setLiked((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
+const toggleWishlist = (item) => {
+  const isInWishlist = wishlist.some((w) => w.title === item.title);
+  isInWishlist ? removeFromWishlist(item) : addToWishlist(item);
+};
+
+
 
   useEffect(() => {
     setTimeout(() => setLocation('Coimbatore 641004'), 1000);
@@ -192,7 +194,17 @@ const recommendedProducts = useMemo(() => {
       {/* Sticky Add-to-Cart (Mobile) */}
       <div className="fixed bottom-0 w-full bg-white px-4 py-3 shadow-md flex justify-between items-center lg:hidden z-50">
         <span className="font-bold text-lg text-[#83b735]">₹{product.price}</span>
-        <button className="bg-[#83b735] text-white px-6 py-2 rounded font-semibold">Add to Cart</button>
+        <button
+  onClick={() => addToCart({
+    title: product.name,
+    price: product.price,
+    image: product.images[0], // use first image
+  })}
+  className="bg-[#83b735] hover:scale-105 hover:shadow-md text-white font-semibold px-6 py-3 rounded-md transition w-full"
+>
+  Add to Cart
+</button>
+
       </div>
 
       {/* Product Section */}
@@ -263,15 +275,31 @@ const recommendedProducts = useMemo(() => {
           <p className="text-xs text-gray-500">Sold by {product.seller}</p>
 
           <div className="flex flex-col gap-4 w-full max-w-xs">
-            <button className="bg-[#83b735] hover:scale-105 hover:shadow-md text-white font-semibold px-6 py-3 rounded-md transition w-full">
-              Add to Cart
-            </button>
-            <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-6 py-3 rounded-md transition w-full">
-              Buy Now
-            </button>
-            <button onClick={() => setWishlist(!wishlist)} className="text-sm font-medium text-[#83b735] hover:text-red-500 text-left">
-              {wishlist ? '💖 Added to Wishlist' : '🤍 Add to Wishlist'}
-            </button>
+          <button
+  onClick={() => addToCart({
+    title: product.name,
+    price: product.price,
+    image: product.images[0], // use first image
+  })}
+  className="bg-[#83b735] hover:scale-105 hover:shadow-md text-white font-semibold px-6 py-3 rounded-md transition w-full"
+>
+  Add to Cart
+</button>
+<button
+  onClick={() =>
+    wishlist.some((item) => item.title === product.name)
+      ? removeFromWishlist({ title: product.name })
+      : addToWishlist({
+          title: product.name,
+          price: product.price,
+          image: product.images[0], // use first image
+        })
+  }
+  className="text-sm font-medium text-[#83b735] hover:text-red-500 text-left"
+>
+  {wishlist.some((item) => item.title === product.name) ? '💖 Added to Wishlist' : '🤍 Add to Wishlist'}
+</button>
+
           </div>
 
           <div>
@@ -319,7 +347,7 @@ const recommendedProducts = useMemo(() => {
 
 
 
-     {/* You Might Also Like */}
+{/* You Might Also Like */}
 <div className="mt-20 border-t pt-10 px-4 lg:px-8">
   <h2 className="text-xl font-bold mb-6 text-center md:text-left">You Might Also Like</h2>
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -337,11 +365,14 @@ const recommendedProducts = useMemo(() => {
           <div className="absolute top-3 right-3 z-20 -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-in-out">
             <button
               className={`bg-white p-2 rounded-full shadow transition-colors duration-300 ${
-                liked[item.id] ? 'text-red-500' : 'text-black'
+                wishlist.some((w) => w.title === item.title) ? 'text-red-500' : 'text-black'
               }`}
-              onClick={() => toggleWishlist(item.id)}
+              onClick={() => {
+                const isInWishlist = wishlist.some((w) => w.title === item.title);
+                isInWishlist ? removeFromWishlist(item) : addToWishlist(item);
+              }}
             >
-              {liked[item.id] ? <FcLike size={20} /> : <FiHeart size={18} />}
+              {wishlist.some((w) => w.title === item.title) ? <FcLike size={20} /> : <FiHeart size={18} />}
             </button>
           </div>
 
@@ -353,7 +384,10 @@ const recommendedProducts = useMemo(() => {
                 alt={item.title}
                 className="h-44 w-auto object-contain"
               />
-              <button className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 bg-[#83b735] text-white text-sm font-semibold px-8 py-[10px] rounded-md transition-all duration-500 ease-in-out hover:bg-black whitespace-nowrap">
+              <button
+                onClick={() => addToCart(item)}
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 bg-[#83b735] text-white text-sm font-semibold px-8 py-[10px] rounded-md transition-all duration-500 ease-in-out hover:bg-black whitespace-nowrap"
+              >
                 ADD TO CART
               </button>
             </div>
@@ -375,6 +409,7 @@ const recommendedProducts = useMemo(() => {
     )}
   </div>
 </div>
+
 
 
       {/* Lazy Reviews */}

@@ -1,12 +1,27 @@
 'use client';
 import useStore from '@/app/store/useStore';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 import { X, Plus, Minus } from 'lucide-react';
 
 export default function CartPage() {
   const { cart, removeFromCart, increaseQty, decreaseQty } = useStore();
+  const router = useRouter();
 
   const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+
+  const handleCheckout = () => {
+    if (cart.length === 0) {
+      toast.error("Your cart is empty");
+      return;
+    }
+
+    toast.success("Redirecting to payment...");
+    setTimeout(() => {
+      router.push('/checkout');
+    }, 1000);
+  };
 
   return (
     <div className="min-h-screen py-14 px-4 bg-white font-sans">
@@ -67,7 +82,10 @@ export default function CartPage() {
               <h3 className="text-2xl font-bold text-gray-800">
                 Total: ₹ {totalPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
               </h3>
-              <button className="mt-6 bg-[#83b735] hover:bg-black text-white font-semibold px-8 py-3 rounded-md transition">
+              <button
+                onClick={handleCheckout}
+                className="mt-6 bg-[#83b735] hover:bg-black text-white font-semibold px-8 py-3 rounded-md transition"
+              >
                 Proceed to Checkout
               </button>
             </div>

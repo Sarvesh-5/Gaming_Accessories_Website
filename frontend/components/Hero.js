@@ -146,7 +146,8 @@ const Hero = () => {
   };
 
   return (
-    <section ref={sectionRef} className="w-full bg-[#DCDCDC] overflow-x-hidden min-h-[600px] relative">
+    <section ref={sectionRef} className="w-full bg-[#DCDCDC] overflow-x-hidden min-h-[600px] relative z-10">
+
       <div className="bg-[#DCDCDC] py-4 mb-6 px-4 md:px-8 z-50 relative">
         <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
 

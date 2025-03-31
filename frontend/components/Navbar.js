@@ -103,26 +103,58 @@ const Navbar = () => {
             </Link>
 
             {!userName ? (
-              <Link href="/login">
-                <FiUser size={26} className="cursor-pointer hover:text-[#FF4655] text-black" />
-              </Link>
-            ) : (
-              <div className="relative">
-                <button onClick={() => setDropdownOpen(!dropdownOpen)} className="text-black font-medium hover:text-[#FF4655]">
-                  {userName.split('@')[0]}
-                </button>
-                {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-md py-2 text-sm">
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
-            )}
+  <Link href="/login">
+    <FiUser size={26} className="cursor-pointer hover:text-[#FF4655] text-black" />
+  </Link>
+) : (
+  <div className="relative z-50"> {/* Added z-50 for visibility */}
+    <button
+      onClick={() => setDropdownOpen(!dropdownOpen)}
+      className="text-black font-medium hover:text-[#FF4655]"
+    >
+      {userName.split('@')[0]}
+    </button>
+
+    {dropdownOpen && (
+      <div className="absolute right-0 mt-2 w-44 bg-white shadow-lg rounded-md py-2 text-sm z-50">
+        <Link
+          href="/my-orders"
+          className="block px-4 py-2 hover:bg-gray-100 text-left"
+          onClick={() => setDropdownOpen(false)}
+        >
+          🧾 My Orders
+        </Link>
+
+        <Link
+          href="/wishlist"
+          className="block px-4 py-2 hover:bg-gray-100 text-left"
+          onClick={() => setDropdownOpen(false)}
+        >
+          ❤️ Wishlist
+        </Link>
+
+        <Link
+          href="/cart"
+          className="block px-4 py-2 hover:bg-gray-100 text-left"
+          onClick={() => setDropdownOpen(false)}
+        >
+          🛒 Cart
+        </Link>
+
+        <button
+          onClick={() => {
+            handleLogout();
+            setDropdownOpen(false);
+          }}
+          className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 transition"
+        >
+          🚪 Logout
+        </button>
+      </div>
+    )}
+  </div>
+)}
+
 
             <button className="md:hidden text-3xl" onClick={() => setMenuOpen(!menuOpen)}>
               <FiMenu />
