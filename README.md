@@ -83,7 +83,7 @@ Welcome to **FlashFlow**, your ultimate destination for high-performance gaming 
 ![Product Page](./frontend/public/images/productpage.png)
 
 ### 🔎 Product Detail Page
-![Product Detail](./frontend/public/images/productdetailpage.png)
+![Product Detail](./frontend/public/images/productdetailspage.png)
 
 ### 💖 Wishlist Page
 ![Wishlist](./frontend/public/images/wishlistpage.png)
