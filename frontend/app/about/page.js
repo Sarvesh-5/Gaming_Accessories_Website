@@ -1,7 +1,15 @@
 'use client';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function AboutPage() {
+  const team = [
+    { name: 'Sarvesh Kumar', image: '/team/sarv.png' },
+    { name: 'Sreevan Kumar', image: '/team/sreev .png' },
+    { name: 'Sanjay', image: '/team/san.jpg' },
+    { name: 'Sathiyaseelan', image: '/team/sat.png' },
+  ];
+
   return (
     <div className="bg-white text-black font-sans">
       {/* Hero */}
@@ -31,7 +39,7 @@ export default function AboutPage() {
         >
           <h2 className="text-3xl font-bold text-[#83b735] mb-3">Our Story</h2>
           <p className="text-gray-700 text-sm leading-relaxed">
-            Founded by gamers, for gamers — GG Lootbox began with a mission to bring premium, high-performance gaming accessories to the Indian market. 
+            Founded by gamers, for gamers — GG Lootbox began with a mission to bring premium, high-performance gaming accessories to the Indian market.
             We’re not just a store — we’re a community. With a decade of industry knowledge and a passion for immersive gaming, our team curates the latest gear, tested and loved by players across genres.
           </p>
         </motion.div>
@@ -67,36 +75,30 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="bg-gray-100 py-16 px-4">
+      <section className="bg-gray-100 py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-[#83b735] mb-10">Meet the Team</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-            {[
-              {
-                name: 'Sarvesh Kumar',
-              },
-              {
-                name: 'Sreevan Kumar',
-              },
-              {
-                name: 'Sanjay',
-              },
-              {
-                name: 'Sathiyaseelan',
-              },
-            ].map((member, i) => (
+            {team.map((member, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white shadow-md rounded-xl p-6 group hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                className="bg-white shadow-md rounded-xl p-10 min-h-[320px] group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center"
               >
-                <div className="w-24 h-24 mx-auto rounded-full bg-[#83b735] opacity-80 group-hover:opacity-100 mb-4" />
+                <div className="w-[180px] h-[180px] relative mb-4 rounded-full overflow-hidden border-4 border-transparent group-hover:border-[#83b735] group-hover:shadow-[0_0_20px_#83b735] transition-all duration-300">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
                 <h3 className="font-semibold text-lg text-[#2d2d2d] group-hover:text-[#83b735] transition">
                   {member.name}
                 </h3>
-                <p className="text-xs text-gray-600 mt-2">{member.desc}</p>
               </motion.div>
             ))}
           </div>
