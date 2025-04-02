@@ -94,8 +94,8 @@ const renderStars = (rating) => {
 
 export default function SpecialOffers() {
   const endTimes = {
-    1: new Date().getTime() + 120 * 24 * 60 * 60 * 1000,
-    2: new Date().getTime() + 120 * 24 * 60 * 60 * 1000,
+    1: new Date().getTime() + 7 * 24 * 60 * 60 * 1000,
+    2: new Date().getTime() + 7 * 24 * 60 * 60 * 1000,
   };
 
   const { addToCart } = useStore();

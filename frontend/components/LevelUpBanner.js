@@ -25,7 +25,7 @@ export default function LevelUpBanner() {
           <h2 className="text-7xl sm:text-8xl md:text-9xl font-extrabold leading-none mb-4">
             HAPPY <br /> HOURS
           </h2>
-          <p className="text-base font-medium">20 Oct To 1 Nov</p>
+          <p className="text-base font-medium">10 Aprl To 5 May </p>
         </motion.div>
 
         {/* Center Image (floating + scaling up/down) */}

@@ -18,14 +18,13 @@ const heroSlides = [
 ];
 
 const categories = [
-  "Wireless Audio",
-  "Cooler",
-  "Speaker",
+  "Controller",
+  "Headphones",
+  "Keyboards",
   "Gaming Accessory",
-  "Joystick",
+  "MOnitors",
   "Mouse",
   "Chair",
-  "Headphones",
 ];
 
 const productNames = [
