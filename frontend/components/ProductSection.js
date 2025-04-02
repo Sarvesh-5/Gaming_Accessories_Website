@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiHeart } from 'react-icons/fi';
 import { FcLike } from 'react-icons/fc';
@@ -8,83 +9,33 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
 
-const products = [
-  {
-    id: 1,
-    slug: 'ear-buds',
-    title: 'Ear Buds',
-    category: 'Wireless Audio',
-    price: 4000,
-    description: 'Premium ear buds with immersive sound, deep bass, and noise cancellation for a wireless music experience.',
-    image: '/products/Homepage/buds.png',
-  },
-  {
-    id: 2,
-    slug: 'phone-cooler',
-    title: 'Phone Cooler',
-    category: 'Cooler',
-    price: 1200,
-    description: 'This reduces the temperature of the mobile and make sure there is a smooth flow with any disturbance.',
-    image: '/products/Homepage/cooler.png',
-  },
-  {
-    id: 3,
-    slug: 'speaker-amplifier',
-    title: 'Speaker Amplifier',
-    category: 'Speaker',
-    price: 15000,
-    description: 'A speaker amplifier boosts sound output, providing clearer, louder audio for better performance.',
-    image: '/products/Homepage/speaker.png',
-  },
-  {
-    id: 4,
-    slug: 'steering-wheel-set',
-    title: 'Steering Wheel Set',
-    category: 'Gaming Accessory',
-    price: 12000,
-    description: 'Responsive wheel with pedal set for racing games.',
-    image: '/products/Homepage/steering.png',
-  },
-  {
-    id: 5,
-    slug: 'game-joystick',
-    title: 'Game Joystick',
-    category: 'Joystick',
-    price: 956,
-    description: 'Ergonomic joystick with wireless connectivity and customizable controls for pro gamers.',
-    image: '/products/Homepage/joystick.png',
-  },
-  {
-    id: 6,
-    slug: 'gaming-mouse',
-    title: 'Gaming Mouse',
-    category: 'Mouse',
-    price: 1199,
-    description: 'High DPI gaming mouse with programmable buttons and RGB lighting for competitive play.',
-    image: '/products/Homepage/mouse.png',
-  },
-  {
-    id: 7,
-    slug: 'gaming-chair',
-    title: 'Gaming Chair',
-    category: 'Chair',
-    price: 9000,
-    description: 'Comfort-focused gaming chair with ergonomic lumbar support and fully adjustable armrests.',
-    image: '/products/Homepage/gaming-chair.png',
-  },
-  {
-    id: 8,
-    slug: 'gaming-headphones',
-    title: 'Gaming Headphones',
-    category: 'Headphones',
-    price: 4500,
-    description: 'Surround sound headphones with noise cancellation and built-in mic for in-game communication.',
-    image: '/products/Homepage/headphones.png',
-  },
-];
-
 export default function ProductSection() {
   const { wishlist, toggleWishlist, addToCart } = useStore();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/products/')
+      .then((res) => res.json())
+      .then((data) => {
+        const selected = [];
+        const categorySet = new Set();
+
+        // Step 1: One product per category
+        for (let product of data) {
+          if (!categorySet.has(product.category)) {
+            selected.push(product);
+            categorySet.add(product.category);
+          }
+        }
+
+        // Step 2: Add extras to make it 8 total
+        const alreadyPickedIds = new Set(selected.map((p) => p.id));
+        const extras = data.filter((p) => !alreadyPickedIds.has(p.id)).slice(0, 8 - selected.length);
+
+        setProducts([...selected, ...extras]);
+      })
+      .catch((err) => console.error('Error fetching products:', err));
+  }, []);
 
   const handleAddToCart = (product) => {
     addToCart(product);
@@ -128,12 +79,16 @@ export default function ProductSection() {
                   </button>
                 </div>
 
-                {/* Product Image + Add to Cart */}
+                {/* Image + Add to Cart */}
                 <div className="bg-white p-[6px]">
                   <div className="relative bg-[#FAF7F7] h-72 flex items-center justify-center group">
                     <Link href={`/product/${product.slug}`}>
                       <Image
-                        src={product.image}
+                        src={
+                          product.image?.startsWith('http')
+                            ? product.image
+                            : `http://localhost:8000${product.image}`
+                        }
                         alt={product.title}
                         width={200}
                         height={200}
@@ -149,7 +104,7 @@ export default function ProductSection() {
                   </div>
                 </div>
 
-                {/* Product Info */}
+                {/* Info */}
                 <div className="px-6 py-6 text-center">
                   <Link href={`/product/${product.slug}`}>
                     <h1 className="text-lg font-semibold text-black hover:text-[#83b735] cursor-pointer transition">

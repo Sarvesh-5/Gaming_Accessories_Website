@@ -1,5 +1,16 @@
-import { withNextVideo } from "next-video/process";
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default withNextVideo(nextConfig, { folder: 'public/video' });
+const nextConfig = {
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'http',
+          hostname: 'localhost',
+          port: '8000',
+          pathname: '/media/**',
+        },
+      ],
+    },
+  };
+  
+  export default nextConfig;
+  
