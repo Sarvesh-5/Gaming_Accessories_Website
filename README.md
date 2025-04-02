@@ -74,47 +74,48 @@ Welcome to **FlashFlow**, your ultimate destination for high-performance gaming 
 ## 📸 Project Preview
 
 ### 🏠 Homepage
-![Homepage](public/images/homepage.png)
+![Homepage](./frontend/public/images/homepage.png)
 
 ### 🏠 Homepage - Alt Layout
-![Homepage2](public/images/homepage2.png)
+![Homepage2](./frontend/public/images/homepage2.png)
 
 ### 🛍️ All Products Page
-![Product Page](public/images/productpage.png)
+![Product Page](./frontend/public/images/productpage.png)
 
 ### 🔎 Product Detail Page
-![Product Detail](public/images/productdetailpage.png)
+![Product Detail](./frontend/public/images/productdetailpage.png)
 
 ### 💖 Wishlist Page
-![Wishlist](public/images/wishlistpage.png)
+![Wishlist](./frontend/public/images/wishlistpage.png)
 
 ### 🛒 Add to Cart Page
-![Add to Cart](public/images/addtocartpage.png)
+![Add to Cart](./frontend/public/images/addtocartpage.png)
+
 
 ### ✅ Checkout Page
-![Checkout](public/images/checkoutpage.png)
+![Checkout](./frontend/public/images/checkoutpage.png)
 
 ### 🎉 Order Placed Confirmation
-![Order Placed](public/images/orderplacedpge.png)
+![Order Placed](./frontend/public/images/orderplacedpge.png)
 
 ### 📦 My Orders
-![My Orders](public/images/myorders.png)
+![My Orders](./frontend/public/images/myorders.png)
 
 ---
 
 ## 🗄️ Database Design
 
-### 📊 ER Diagram - View 1
-![Database ERD 1](public/images/database1.png)
+### 📊 Database Structure - View 1
+![Database ERD 1](./frontend/public/images/database1.png)
 
-### 📊 ER Diagram - View 2
-![Database ERD 2](public/images/database2.png)
+### 📊 Database of products - View 2
+![Database ERD 2](./frontend/public/images/database2.png)
 
 ---
 
 ## 🧰 Django Backend Page
 
-![Django Admin](public/images/djangopage.png)
+![Django Admin](./frontend/public/images/djangopage.png)
 
 ---
 
