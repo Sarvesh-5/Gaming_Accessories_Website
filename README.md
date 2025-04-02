@@ -8,7 +8,7 @@ Welcome to **FlashFlow**, your ultimate destination for high-performance gaming 
 
 | Frontend | Backend | Database | Auth |
 |----------|---------|----------|------|
-| Next.js + Tailwind CSS | Django + DRF | MySQL | Firebase Auth + Facebook Login |
+| Next.js + Tailwind CSS | Django + DRF | MySQL | Firebase Auth + Google Login |
 
 ---
 
@@ -47,7 +47,7 @@ Welcome to **FlashFlow**, your ultimate destination for high-performance gaming 
 ## 🔐 Authentication
 
 - 🔓 Firebase Login with Email/Password
-- 🔵 Facebook Login Integration
+- 🔵 Google Login Integration
 - 👤 User dropdown in Navbar with Logout
 
 ---
