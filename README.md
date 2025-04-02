@@ -1,14 +1,14 @@
 # 🎮 FlashFlow – Gaming Accessories E-commerce Store
 
-Welcome to **FlashFlow**, your ultimate destination for high-performance gaming gear. This full-stack project is built with ❤️ using **Next.js (Frontend)** and **Django (Backend)**, providing a lightning-fast, visually stunning, and fully functional shopping experience.
+Welcome to **FlashFlow**, your ultimate destination for high-performance gaming gear. This full-stack project is built using **Next.js (Frontend)** and **Django (Backend)**, providing a lightning-fast, visually stunning, and fully functional shopping experience.
 
 ---
 
 ## 🚀 Tech Stack
 
-| Frontend | Backend | Database | Auth | Payments |
-|----------|---------|----------|------|----------|
-| Next.js + Tailwind CSS | Django + DRF | MySQL | Firebase Auth + Facebook Login | Stripe |
+| Frontend | Backend | Database | Auth |
+|----------|---------|----------|------|
+| Next.js + Tailwind CSS | Django + DRF | MySQL | Firebase Auth + Facebook Login |
 
 ---
 
@@ -52,16 +52,6 @@ Welcome to **FlashFlow**, your ultimate destination for high-performance gaming 
 
 ---
 
-## 💳 Payments
-
-Integrated with **Stripe** for secure and fast payment processing. Supports:
-- Address Entry
-- Order Summary
-- Stripe Checkout
-- Email Confirmation (on order success)
-
----
-
 ## 🛠️ Setup Instructions
 
 1. Clone the repo  
@@ -81,26 +71,65 @@ Integrated with **Stripe** for secure and fast payment processing. Supports:
 
 ---
 
-## 🌐 Deployment Ready
+## 📸 Project Preview
 
-- ✅ Gunicorn, CORS, and production DB-ready
-- ✅ Images served via Django
-- ✅ Environment variables supported
+### 🏠 Homepage
+![Homepage](public/images/homepage.png)
+
+### 🏠 Homepage - Alt Layout
+![Homepage2](public/images/homepage2.png)
+
+### 🛍️ All Products Page
+![Product Page](public/images/productpage.png)
+
+### 🔎 Product Detail Page
+![Product Detail](public/images/productdetailpage.png)
+
+### 💖 Wishlist Page
+![Wishlist](public/images/wishlistpage.png)
+
+### 🛒 Add to Cart Page
+![Add to Cart](public/images/addtocartpage.png)
+
+### ✅ Checkout Page
+![Checkout](public/images/checkoutpage.png)
+
+### 🎉 Order Placed Confirmation
+![Order Placed](public/images/orderplacedpge.png)
+
+### 📦 My Orders
+![My Orders](public/images/myorders.png)
+
+---
+
+## 🗄️ Database Design
+
+### 📊 ER Diagram - View 1
+![Database ERD 1](public/images/database1.png)
+
+### 📊 ER Diagram - View 2
+![Database ERD 2](public/images/database2.png)
+
+---
+
+## 🧰 Django Backend Page
+
+![Django Admin](public/images/djangopage.png)
 
 ---
 
 ## ✨ Credits
 
-Made with 💚 by **Sarvesh Kumar**, **Sreevan Kumar**, **Sanjay**, and **Sathiyaseelan**
-
----
-
-## 📸 Sneak Peek
-
-![Preview](public/preview.gif)
+Project developed by:
+- **Sarvesh Kumar R**
+- **Sreevan Kumar S**
+- **Sanjay S**
+- **Sathiyaseelan J**
 
 ---
 
 ## 📄 License
 
 MIT License
+
+For more details, see the [LICENSE](LICENSE) file.
