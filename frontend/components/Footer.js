@@ -7,6 +7,10 @@ import localFont from 'next/font/local';
 
 const Blacknorth = localFont({ src: '../public/fonts/Blacknorthdemo-mLE25.otf' });
 
+
+
+
+
 export default function Footer() {
   return (
     <footer className="text-white font-sans">

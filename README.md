@@ -1,14 +1,15 @@
-# 🎮 FlashFlow – Gaming Accessories E-commerce Store
 
-Welcome to **FlashFlow**, your ultimate destination for high-performance gaming gear. This full-stack project is built using **Next.js (Frontend)** and **Django (Backend)**, providing a lightning-fast, visually stunning, and fully functional shopping experience.
+# 🎮 GG-LOOTBOX – Gaming Accessories E-commerce Store
+
+Welcome to **GG-LOOTBOX**, your ultimate destination for high-performance gaming gear. This full-stack project is built using **Next.js (Frontend)** and **Django (Backend)**, providing a lightning-fast, visually stunning, and fully functional shopping experience.
 
 ---
 
 ## 🚀 Tech Stack
 
-| Frontend | Backend | Database | Auth |
-|----------|---------|----------|------|
-| Next.js + Tailwind CSS | Django + DRF | MySQL | Firebase Auth + Google Login |
+| Frontend              | Backend       | Database | Auth                            | Integrations         |
+|-----------------------|---------------|----------|----------------------------------|----------------------|
+| Next.js + Tailwind CSS | Django + DRF | MySQL    | Firebase (Email/Password, Google) |, EmailJS  |
 
 ---
 
@@ -24,7 +25,7 @@ Welcome to **FlashFlow**, your ultimate destination for high-performance gaming 
   - FAQs, Reviews, and Ratings breakdown
   - Recommendations (You Might Also Like)
 
-- 🧠 **AI Chatbot** for smart customer support  
+   📧 **Email Contact Form – powered by EmailJS**  
 - 📬 **Newsletter Signup**, SEO tags, and responsive design  
 
 ---
@@ -51,7 +52,17 @@ Welcome to **FlashFlow**, your ultimate destination for high-performance gaming 
 - 👤 User dropdown in Navbar with Logout
 
 ---
+## 📧 Email Support (EmailJS)
 
+Allow users to send messages via contact form without a backend.
+
+### Setup:
+- Create `.env.local` in `frontend/`:
+  ```env
+  EMAILJS_SERVICE_ID=your_service_id
+  EMAILJS_TEMPLATE_ID=your_template_id
+  EMAILJS_PUBLIC_KEY=your_public_key
+---
 ## 🛠️ Setup Instructions
 
 1. Clone the repo  
