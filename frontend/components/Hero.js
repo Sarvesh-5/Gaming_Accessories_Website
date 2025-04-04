@@ -8,12 +8,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiSearch, FiMenu } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 
-import "swiper/css";
 import "swiper/css/navigation";
 
 const heroSlides = [
   { id: 1, title: "Wireless", subtitle: "Beasts Solo", description: "Headphone", image: "/headphone.png" },
-  { id: 2, title: "Precision Control", subtitle: "Pro Series", description: "Mouse", image: "/mouse.png" },
   { id: 3, title: "Gaming Mastery", subtitle: "Elite Keyboard", description: "Keyboard", image: "/keyboard.png" },
 ];
 
