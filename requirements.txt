@@ -3,3 +3,4 @@ djangorestframework
 django-cors-headers
 Pillow
 mysqlclient
+pip install python-decouple
