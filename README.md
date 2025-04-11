@@ -86,7 +86,7 @@ npm run dev
 ```
 
 ---
-### ▶️ Project Working Demo  
+## ▶️ Project Working Demo  
 
 [![Watch the demo on YouTube](./frontend/public/images/thumbnail.png)](https://youtu.be/essd_1QoMFk)
 
