@@ -87,13 +87,11 @@ npm run dev
 
 ### ▶️ Project Working Demo  
 
-<video src="./frontend/public/images/project_working.mp4" controls width="100%"></video>
+[![Watch the demo on YouTube](./frontend/public/images/thumbnail.png)](https://youtu.be/essd_1QoMFk)
+
 ---
 
 ## 📸 Project Preview
-
-### ▶️ Project Working Demo  
-<video src="./frontend/public/images/project_working.mp4" controls width="100%"></video>
 
 ### 🏠 Homepage  
 ![Homepage](./frontend/public/images/homepage.png)
