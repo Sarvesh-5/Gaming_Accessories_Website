@@ -85,6 +85,9 @@ npm install
 npm run dev
 ```
 
+### ▶️ Project Working Demo  
+
+<video src="./frontend/public/images/project_working.mp4" controls width="100%"></video>
 ---
 
 ## 📸 Project Preview
