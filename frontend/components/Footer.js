@@ -115,6 +115,7 @@ export default function Footer() {
             </div>
 
             {/* Pages */}
+            {/* Pages */}
             <div>
               <h3 className="text-lg font-bold mb-3">Pages</h3>
               <ul className="space-y-2 text-sm text-gray-300">
@@ -134,6 +135,7 @@ export default function Footer() {
                     <FaInstagram className="text-xl" />
                   </div>
                 </Link>
+                
                 <Link href="https://facebook.com" target="_blank">
                   <div className="w-[50px] h-[50px] bg-gray-700 flex items-center justify-center rounded-md hover:bg-[#83b735] transition">
                     <FaFacebookF className="text-xl" />
