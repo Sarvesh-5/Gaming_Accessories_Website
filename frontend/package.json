@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@next/font": "^14.2.15",
     "@tailwindcss/line-clamp": "^0.4.4",
     "axios": "^1.8.4",
