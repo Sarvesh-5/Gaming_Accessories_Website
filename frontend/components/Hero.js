@@ -22,7 +22,7 @@ const categories = [
   "Headphones",
   "Keyboards",
   "Gaming Accessory",
-  "MOnitors",
+  "Monitors",
   "Mouse",
   "Chair",
 ];

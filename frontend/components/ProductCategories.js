@@ -72,7 +72,7 @@ const CategorySection = () => {
             <p className="text-3xl font-extrabold mb-3 -mt-1">Gaming</p>
             <p className="text-6xl font-extrabold opacity-40 -mt-1 text-gray-500">Chair</p>
           </div>
-          <Link href="/products">
+          <Link href="/products?category=Chair">
             <button className="absolute bottom-9 left-6 bg-white px-5 py-2 rounded-md overflow-hidden min-h-[38px] w-[100px] group z-20">
               <span className="block w-full text-center transition-transform duration-300 ease-in-out group-hover:-translate-y-[120%] text-black text-base font-semibold">
                 Browse
@@ -97,7 +97,7 @@ const CategorySection = () => {
             <p className="text-3xl font-extrabold mb-3 -mt-1">Cooling</p>
             <p className="text-6xl font-extrabold mb-3 -mt-1 text-yellow-200">Pad</p>
           </div>
-          <Link href="/products">
+          <Link href="/products?category=Controller">
             <button className="absolute bottom-9 left-6 bg-white px-5 py-2 rounded-md overflow-hidden min-h-[38px] w-[100px] group z-20">
               <span className="block w-full text-center transition-transform duration-300 ease-in-out group-hover:-translate-y-[120%] text-yellow-400 text-base font-semibold">
                 Browse
@@ -122,7 +122,7 @@ const CategorySection = () => {
             <p className="text-3xl font-extrabold mb-3 -mt-1">Gaming</p>
             <p className="text-6xl font-extrabold mb-3 -mt-1 text-red-200">Monitor</p>
           </div>
-          <Link href="/products">
+          <Link href="/products?category=Monitors">
             <button className="absolute bottom-9 left-8 bg-white px-5 py-2 rounded-md overflow-hidden min-h-[38px] w-[100px] group z-20">
               <span className="block w-full text-center transition-transform duration-300 ease-in-out group-hover:-translate-y-[120%] text-red-500 text-base font-semibold">
                 Browse
@@ -175,7 +175,7 @@ const CategorySection = () => {
             <p className="text-3xl font-extrabold mb-3 -mt-1">Playstation</p>
             <p className="text-7xl font-extrabold mb-3 -mt-1 text-green-200">PS5</p>
           </div>
-          <Link href="/products">
+          <Link href="/products?category=Gaming Accessory">
             <button className="absolute bottom-9 left-6 bg-white px-5 py-2 rounded-md overflow-hidden min-h-[38px] w-[100px] group z-20">
               <span className="block w-full text-center transition-transform duration-300 ease-in-out group-hover:-translate-y-[120%] text-green-500 text-base font-semibold">
                 Browse
