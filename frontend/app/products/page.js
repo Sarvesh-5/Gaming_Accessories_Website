@@ -69,8 +69,7 @@ export default function AllProductsPage() {
       products = products.filter(
         (p) =>
           p.title.toLowerCase().includes(term) ||
-          p.category.toLowerCase().includes(term) ||
-          p.description.toLowerCase().includes(term)
+          p.category.toLowerCase().includes(term) 
       );
     }
 

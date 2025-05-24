@@ -146,7 +146,7 @@ export default function Footer() {
                     <FaTwitter className="text-xl" />
                   </div>
                 </Link>
-                <Link href="https://youtube.com" target="_blank">
+                <Link href="https://youtu.be/essd_1QoMFk?si=xxnAAJ-RDVMFHvUL" target="_blank">
                   <div className="w-[50px] h-[50px] bg-gray-700 flex items-center justify-center rounded-md hover:bg-[#83b735] transition">
                     <FaYoutube className="text-xl" />
                   </div>
