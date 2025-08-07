@@ -4,7 +4,7 @@ from .views import ReviewViewSet
 from .views import (
     create_user, check_user, create_order, get_orders,
     ProductViewSet, ProductDetailViewSet,
-    FAQViewSet,  # ✅ Add FAQViewSet here
+    FAQViewSet,  
     get_product_details
 )
 
@@ -12,7 +12,7 @@ from .views import (
 router = DefaultRouter()
 router.register('products', ProductViewSet)
 router.register('productdetail', ProductDetailViewSet)
-router.register('faq', FAQViewSet)  # ✅ Register the FAQ ViewSet
+router.register('faq', FAQViewSet)  
 router.register('review', ReviewViewSet)
 
 urlpatterns = [

@@ -20,8 +20,6 @@ class Order(models.Model):
     def __str__(self):
         return self.order_id
 
-
-# ✅ Add this Product model below
 class Product(models.Model):
     slug = models.SlugField(unique=True)
     title = models.CharField(max_length=255)

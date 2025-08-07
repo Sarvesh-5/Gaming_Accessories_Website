@@ -8,10 +8,9 @@ from .serializers import FAQSerializer
 from rest_framework import viewsets
 from .serializers import ProductSerializer, ProductDetailSerializer, FAQSerializer, ReviewSerializer
 from .models import Product, ProductDetail, FAQ, Review
-# 🔸 Dummy in-memory user list (can be replaced with real DB)
+
 users = [{"email": "test@example.com", "uid": "some-firebase-uid"}]
 
-# ✅ Create user (from Firebase or manual)
 @api_view(['POST'])
 def create_user(request):
     email = request.data.get('email')
@@ -21,14 +20,13 @@ def create_user(request):
     print(f"Received user: {email}, {uid}")
     return Response({"message": "User saved!"})
 
-# ✅ Check if user exists (basic logic)
+
 @api_view(["GET"])
 def check_user(request):
     email = request.GET.get("email")
     exists = any(user["email"] == email for user in users)
     return Response({"exists": exists})
 
-# ✅ Create an order
 @api_view(['POST'])
 def create_order(request):
     serializer = OrderSerializer(data=request.data)
@@ -37,7 +35,7 @@ def create_order(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# ✅ Get all orders (for Postman or admin use)
+
 @api_view(['GET'])
 def get_orders(request):
     orders = Order.objects.all().order_by('-created_at')  # Latest orders first

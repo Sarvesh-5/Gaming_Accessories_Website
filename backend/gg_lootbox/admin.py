@@ -3,7 +3,6 @@ from .models import Product, ProductDetail, FAQ, Review, Order
 from .models import ProductImage
 
 
-# ✅ Register both models
 admin.site.register(Order)
 admin.site.register(Product)
 admin.site.register(ProductDetail)
